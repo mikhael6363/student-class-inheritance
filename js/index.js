@@ -80,7 +80,7 @@ class Student extends User{
     if(typeof newYear !== 'number' || isNaN(newYear)) {
       throw new TypeError();
     }
-    if(CURRENT_YEAR <= newYear || MIN_ENTRY_YEAR > newYear) {
+    if(new Date().getFullYear() < newYear || MIN_ENTRY_YEAR > newYear) {
       throw new RangeError();
     }
 
@@ -88,19 +88,22 @@ class Student extends User{
   }
 
   getCourse() {
-    if(this._year > CURRENT_YEAR) {
+    if(this._year > new Date().getFullYear()) {
       throw new RangeError();
     }
-    if(CURRENT_YEAR - this._year > 5) {
+    if(new Date().getFullYear() - this._year > 5) {
       return 5;
     }
-    return CURRENT_YEAR - this._year;
+    if(new Date().getFullYear() - this._year === 0) {
+      return 1;
+    }
+    return new Date().getFullYear() - this._year;
   }
 
 }
 
 const user = new User('Mikhail', 'Testovich');
-const student = new Student('Vladimir', 'Testovich', 2017);
+const student = new Student('Vladimir', 'Testovich', 2014);
 
 console.log(user);
 console.log(user.fullName);
