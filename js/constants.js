@@ -1,1 +1,0 @@
-const MIN_ENTRY_YEAR = 2000;
